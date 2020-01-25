@@ -65,7 +65,6 @@ class Slider extends React.Component {
   }
 
   moveSlider = dir => {
-    console.log(dir);
     const { active } = this.state;
     if (dir === 'l') {
       if (active === 0) {
@@ -98,7 +97,7 @@ class Slider extends React.Component {
     clearInterval(interval);
     clearTimeout(timeout);
     this.setState({
-      timeout: setTimeout(moveItSelf, 6000),
+      timeout: setTimeout(moveItSelf, 3000),
     });
   };
 
