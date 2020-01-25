@@ -27,14 +27,42 @@ const StyledArrow = styled.button`
   ${({ dir }) => (dir === 'l' ? 'left: 10px;' : 'right: 10px;')}
 `;
 
+const StyledBox = styled.div`
+  width: 50px;
+  height: 10px;
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+
+const StyledDot = styled.div`
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  border: 1px solid #e5e5e5;
+  transition: 0.1s;
+  ${({ activeI, index }) =>
+    index === activeI ? 'background-color: #E5E5E5' : 'background-color: transparent'}
+`;
+
 const images = [img, img2, img3];
 
 class Slider extends React.Component {
   state = {
     active: 0,
+    interval: 0,
+    timeout: 0,
   };
 
-  setActiveImage = dir => {
+  componentDidMount() {
+    this.moveItSelf();
+  }
+
+  moveSlider = dir => {
+    console.log(dir);
     const { active } = this.state;
     if (dir === 'l') {
       if (active === 0) {
@@ -60,6 +88,23 @@ class Slider extends React.Component {
     }
   };
 
+  setActiveImage = dir => {
+    const { interval, timeout } = this.state;
+    const { moveItSelf, moveSlider } = this;
+    moveSlider(dir);
+    clearInterval(interval);
+    clearTimeout(timeout);
+    this.setState({
+      timeout: setTimeout(moveItSelf, 6000),
+    });
+  };
+
+  moveItSelf = () => {
+    this.setState({
+      interval: setInterval(() => this.moveSlider('r'), 3000),
+    });
+  };
+
   render() {
     const { active } = this.state;
     const { setActiveImage } = this;
@@ -74,6 +119,11 @@ class Slider extends React.Component {
         <StyledArrow dir="r" onClick={() => setActiveImage('r')}>
           {'>'}
         </StyledArrow>
+        <StyledBox>
+          <StyledDot activeI={active} index={0} />
+          <StyledDot activeI={active} index={1} />
+          <StyledDot activeI={active} index={2} />
+        </StyledBox>
       </StyledSlider>
     );
   }
