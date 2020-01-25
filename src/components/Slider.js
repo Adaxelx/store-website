@@ -7,14 +7,17 @@ import img3 from 'assets/slider3.png';
 const StyledSlider = styled.div`
   position: relative;
   width: 100%;
-  height: 40vh;
+  height: 50vh;
   background-color: #f5f5f5;
   overflow: hidden;
 `;
 
 const StyledImg = styled.img`
-  width: 100%;
+  height: 100%;
   position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   ${({ activeI, index }) => (index === activeI ? 'opacity:1;' : 'opacity:0;')}
   transition: 0.4s;
 `;
