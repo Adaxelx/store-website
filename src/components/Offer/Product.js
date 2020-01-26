@@ -5,9 +5,14 @@ const StyledProduct = styled.div`
   position: relative;
   margin-top: 20px;
   overflow: hidden;
-  width: ${({ width }) => (width === 'l' ? '100%' : '49%')};
+  width: 100%;
+  ${({ width, item }) =>
+    width === 'l'
+      ? `grid-column-start: 1; grid-column-end: 3; grid-row: ${
+          item % 2 === 0 ? item / 2 + 1 : item / 2 + 0.5
+        }}`
+      : ''};
   height: 200px;
-
   display: flex;
   flex-direction: column;
 `;
@@ -15,7 +20,7 @@ const StyledProduct = styled.div`
 const StyledImgCon = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: #f5f5f5;
+  background-color: ${({ theme }) => theme.grayL};
   margin-bottom: 10px;
 `;
 
@@ -36,9 +41,9 @@ const StyledPrice = styled.p`
   color: #707070;
 `;
 
-const Product = ({ width, img, name, price }) => {
+const Product = ({ width, img, name, price, item }) => {
   return (
-    <StyledProduct width={width}>
+    <StyledProduct width={width} item={item}>
       <StyledImgCon>
         <StyledImg src={img} />
       </StyledImgCon>

@@ -8,7 +8,7 @@ const StyledSlider = styled.div`
   position: relative;
   width: 100%;
   height: 50vh;
-  background-color: #f5f5f5;
+  background-color: ${({ theme }) => theme.grayL};
   overflow: hidden;
 `;
 
@@ -45,10 +45,10 @@ const StyledDot = styled.div`
   height: 10px;
   width: 10px;
   border-radius: 50%;
-  border: 1px solid #e5e5e5;
+  border: 1px solid ${({ theme }) => theme.grayD};
   transition: 0.1s;
-  ${({ activeI, index }) =>
-    index === activeI ? 'background-color: #E5E5E5' : 'background-color: transparent'}
+  background-color: ${({ activeI, index, theme }) =>
+    index === activeI ? theme.grayD : 'transparent'};
 `;
 
 const images = [img, img2, img3];

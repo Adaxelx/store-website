@@ -1,12 +1,6 @@
 export const theme = {
-  widthCon: '90%',
-  marginContent: '15px',
-  marginBox: '30px',
-  bgColor: 'black',
-  bgArt: '#fff7e3',
-  fontColor: 'white',
-  flexCon: 'display: flex; flex-direction: column; align-items: center;',
-  padding: '15px 0',
+  grayL: '#f5f5f5',
+  grayD: '#e5e5e5',
   fontSize: {
     s: '1.5rem',
     m: '1.75rem',

@@ -1,4 +1,4 @@
-import { ADD_ITEM, SET_BREAKPOINT } from 'actions/actionTypes';
+import { ADD_ITEM, SET_BREAKPOINT, OPEN_FILTER, FIND_NAME } from 'actions/actionTypes';
 
 import pot from 'assets/slider.png';
 import table from 'assets/stol.png';
@@ -10,6 +10,8 @@ import speaker from 'assets/glosnik.png';
 const initialState = {
   activeItems: [],
   breakPoint: 7,
+  activeFilter: false,
+  filter: '',
   items: [
     {
       id: 0,
@@ -109,6 +111,13 @@ const initialState = {
       name: 'Pot',
       price: '12.45',
     },
+    {
+      id: 14,
+      width: 's',
+      img: pot,
+      name: 'Pot',
+      price: '12.45',
+    },
   ],
 };
 
@@ -128,6 +137,16 @@ export const storeShop = (state = initialState, action) => {
       return {
         ...state,
         breakPoint: state.breakPoint + 7,
+      };
+    case OPEN_FILTER:
+      return {
+        ...state,
+        activeFilter: !state.activeFilter,
+      };
+    case FIND_NAME:
+      return {
+        ...state,
+        filter: action.name,
       };
     default:
       return state;
