@@ -1,13 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import { setBreakpoint } from 'actions';
 
 import Product from 'components/Offer/Product';
 
 const StyledOffer = styled.div`
   flex-grow: 1;
-  min-height: 100vh;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const TitleBar = styled.div`
@@ -26,12 +29,24 @@ const StyledProductCon = styled.div`
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  width: 100%;
+`;
+
+const StyledButton = styled.button`
+  margin-top: 20px;
+  background-color: transparent;
+  border: none;
+  font-size: ${({ theme }) => theme.fontSize.s};
+  text-decoration: underline;
 `;
 
 const Offer = props => {
-  const Products = props.items.map(({ width, img, name, price }) => (
-    <Product width={width} img={img} name={name} price={price} />
-  ));
+  const Products = props.items.map(({ width, img, name, price, id }) => {
+    if (id < props.breakPoint)
+      return <Product width={width} img={img} name={name} price={price} key={id} />;
+
+    return null;
+  });
   return (
     <StyledOffer>
       <TitleBar>
@@ -39,12 +54,18 @@ const Offer = props => {
         <Header>Filter</Header>
       </TitleBar>
       <StyledProductCon>{Products}</StyledProductCon>
+      <StyledButton onClick={props.setBreakpoint}>Show more</StyledButton>
     </StyledOffer>
   );
 };
 
 const mapStateToProps = state => ({
   items: state.items,
+  breakPoint: state.breakPoint,
 });
 
-export default connect(mapStateToProps)(Offer);
+const mapDispatchToProps = dispatch => ({
+  setBreakpoint: () => dispatch(setBreakpoint()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Offer);
